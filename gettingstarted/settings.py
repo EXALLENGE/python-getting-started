@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "social_django",
     "hello",
 ]
 
@@ -69,6 +70,25 @@ TEMPLATES = [
         },
     }
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+
+# ты их сам себе скинул в вк
+
+SOCIAL_AUTH_FACEBOOK_KEY = '652759238561144' # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2505fed9255758e30203a588ee019998' # App Secret
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7047017'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'QaUjeU9y4MARII3PTQMO'
 
 WSGI_APPLICATION = "gettingstarted.wsgi.application"
 
