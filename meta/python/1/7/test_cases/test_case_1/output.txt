@@ -1,4 +1,3 @@
-True and True = True
-False and False = False
-True and False = False
-False and True = False
+Вам нужно бегать 30 минут.
+Стоять в планке 3 минут.
+Отжаться 20 раз.
