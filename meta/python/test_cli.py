@@ -1,13 +1,19 @@
+import os
 
 
-import solution
+user_submit = open('solution.py', 'r')
+tmp_file = open('_tmp_solution.py', 'w')
 
-input_data = ['1', '2']
-output_data = []
+tmp_file.write('def __main_process_in_solution_which_we_are_going_to_test():\n')
+for line in user_submit:
+    tmp_file.write(f'\t{line}')
+user_submit.close()
+tmp_file.close()
 
-solution.input = lambda : input_data.pop()
-solution.print = lambda s: output_data.append(s)
+# create file test_solution, folder test_cases (download or read from cache)
 
-solution.__main_process_in_solution_which_we_are_going_to_test()
+os.system('python test_solution.py')
 
-print(output_data)
+# output report
+
+# delete _tmp_solution.py, test_solution.py, test_cases, report.txt
