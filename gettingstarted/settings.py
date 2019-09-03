@@ -72,6 +72,9 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -89,6 +92,9 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '2505fed9255758e30203a588ee019998' # App Secret
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '7047017'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'QaUjeU9y4MARII3PTQMO'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='140383575777-epuqk1ooftnl8v6c7d1qa2acnk4jtc5o.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '7AF89TxXJ0AKb_RnZOE7X8fl' #Paste Secret Key
 
 WSGI_APPLICATION = "gettingstarted.wsgi.application"
 

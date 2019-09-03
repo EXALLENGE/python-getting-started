@@ -1,13 +1,196 @@
-{% extends 'base.html' %}
-{% block title %} Home {% endblock %}
-{% block content %}
-<div class="row">
-    <div class="col-sm-12 mb-3">
-        {% if user.username %}
-            <h4 class="text-center"> Welcome {{ user.username }} </h4>
-        {% else %}
-            <h4 class="text-center"> Welcome User </h4>
-        {% endif %}
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>EXALLENGE</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="page-header" id="particles-js">
+      <div class="page-header-top">
+        <div class="container">
+          <div class="header-top clearfix">
+            <div class="header-logo">
+              <a>EXALLENGE</a>
+                <div style="display: inline"  class="main__item"><svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle">
+                  <title id="rocketIconTitle">Rocket</title>
+                  <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"></path>
+                  <path d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"></path>
+                </svg></div>
+            </div>
+            <ul class="main-nav clearfix">
+              <li><a href="#">Курсы</a></li>
+              <li><a href="#">Отзывы</a></li>
+              <li><a href="#">Написать нам</a></li>
+            </ul>
+            {% if user.is_authenticated %}
+                <a class="btn btn-quick-order" href="/login">{{ user.username }}</a>
+            {% else %}
+                <a class="btn btn-quick-order" href="/login">Войти</a>
+            {% endif %}
+          </div>
+          <div class="promo">
+            <h1>Бесплатные курсы по программированию в Москве</h1>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-{% endblock %}
+    <div class="features">
+      <div class="container">
+        <ul class="clearfix">
+          <li class="feature-item feature-choice">
+              <div class="main__item"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-labelledby="supportIconTitle">
+                <title id="supportIconTitle">Support</title>
+                <path stroke-linecap="round" d="M11 8L9.42229 7.21115C9.14458 7.07229 8.83835 7 8.52786 7H7.82843C7.29799 7 6.78929 7.21071 6.41421 7.58579L5.58579 8.41421C5.21071 8.78929 5 9.29799 5 9.82843L5 14.9296C5 15.5983 5.3342 16.2228 5.8906 16.5937L9.75746 19.1716C10.4944 19.663 11.4668 19.611 12.1472 19.044L17 15"></path>
+                <path d="M14.4549 12.9142C13.8515 12.1062 12.741 11.8739 11.8643 12.3721L10.009 13.4266C9.41298 13.7653 8.66412 13.6641 8.17937 13.1794V13.1794C7.54605 12.546 7.59324 11.5056 8.2813 10.9323L12.4437 7.46356C12.8032 7.16403 13.2562 7 13.7241 7H14.5279C14.8384 7 15.1446 7.07229 15.4223 7.21115L17.8944 8.44721C18.572 8.786 19 9.47852 19 10.2361L19 12.9796C19 14.9037 16.5489 15.718 15.3976 14.1764L14.4549 12.9142Z"></path>
+                <path d="M1 17V8"></path>
+                <path d="M1 17V8"></path>
+                <path d="M23 17V8"></path>
+              </svg></div>
+            <h2 class="feature-title">Очно</h2>
+            <p>Онлайн-курсы заканчивают 1.5 процента слушателей. Что-то запоминают еще меньше. Поэтому мы решили проводить очно все наши занятия.</p>
+          </li>
+          <li class="feature-item feature-quality">
+              <div class="main__item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="diamondIconTitle">
+                <title id="diamondIconTitle">Diamond</title>
+                <path d="M12 20L3 11M12 20L21 11M12 20L8 11M12 20L16 11M3 11L7 5M3 11H8M7 5L8 11M7 5H12M17 5L21 11M17 5L16 11M17 5H12M21 11H16M8 11H16M8 11L12 5M16 11L12 5"></path>
+              </svg></div>
+            <h2 class="feature-title">Качественно</h2>
+            <p>Мы детально проработали все и сами были на вашем месте. Мы уже заранее знаем какие у вас будут трудности и как нам их вместе преодалеть.</p>
+          </li>
+          <li class="feature-item feature-safety">
+              <div class="main__item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="basketballIconTitle">
+                <title id="basketballIconTitle">Basketball</title>
+                <g stroke-linecap="butt">
+                  <path d="M3.00476 7.71673C6.03818 6.81589 9.99791 7.74841 13.2448 10.4315C16.5425 13.1566 18.2053 16.9442 17.8244 20.1241"></path>
+                  <path d="M10.102 21.7996C9.33937 19.3589 10.0106 15.6137 12.0776 12.0335C14.1385 8.46402 17.0351 6.01413 19.5251 5.44463"></path>
+                  <path d="M11.4419 2C11.2615 3.94419 10.5157 6.2298 9.22541 8.46468C7.29158 11.8142 4.64753 14.1615 2.40135 14.7854"></path>
+                </g>
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg></div>
+            <h2 class="feature-title">Увлекательно</h2>
+            <p>Мы не читаем лекции по 3 часа а потом просим пройти тест в конце. На наших курсах вы будете разробатывать реальные проекты чтобы все понять.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="press-review">
+      <div class="wrapper">
+        <h2 class="section-title">О нас</h2>
+        <blockquote>
+          <p>Вам наверное интересно как мы начали читать лекции и зачем мы это делаем. В этой статье на медиуме мы рассказали о нашей мотивации и о самих курсах.</p>
+          <div>
+            <cite>Блог на Medium</cite>
+            <a class="btn" href="#">Читать</a>	
+          </div>  
+        </blockquote>
+      </div>
+    </div>
+    <div class="reviews">
+      <div class="container">
+        <h2 class="section-title">Отзывы</h2>
+        <a class="btn to-all-reviews" href="#" title="Посмотреть все отзывы">Все отзывы</a>
+        <div class="reviews-list clearfix">
+          <blockquote class="review-item">
+            <p>Большое спасибо ребятам за очный курс по python! Часто засиживались уже после пар чтобы разобрать домашку или задать вопросы по лекции.</p>
+            <cite class="review-author">Глеб, г. Москва</cite>
+          </blockquote>
+          <blockquote class="review-item">
+            <p>Лично я постоянно теряю фокус и начинаю отвлекаться. Но ребята построили общение так, что я все равно все усвоил и понял. Спасибо большое!</p>
+            <cite class="review-author">Олег, г. Москва</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <div class="popular-and-price">
+      <div class="container">
+        <h2 class="section-title">Популярные курсы</h2>
+        <a class="btn to-catalog" href="#" title="Посмотреть все курсы">Все курсы</a>
+        <div class="popular-items clearfix">
+          <div class="catalog-item">
+            <h3>Python для школьников</h3>
+            <p>Изучим основы языка, напишем первые программы. Прорешаем более 70 практических задач которые проверят наши учителя.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Записаться</a>
+          </div>
+          <div class="catalog-item">
+            <h3>Python для студентов</h3>
+            <p>Разберем как основы так и продвинутые темы языка. Разработаем выпускной проект в группах с использованием системы контроля версий.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Записаться</a>
+          </div>
+          <div class="catalog-item">
+            <h3>Фронтенд-разработка для студентов</h3>
+            <p>Рассмотрим как устроен фронтенд в 2019 году и что нужно знать для того чтобы заниматься разработкой. Реализуем проект с использованием HTML, CSS и JS.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feedback">
+      <div class="container">
+        <h2 class="section-title">Есть вопросы?</h2>
+        <form class="feedback-form" action="/keksby-mail" method="post">
+          <div class="feedback-form-group">
+            <label for="fullname">Представьтесь, пожалуйста:</label>
+            <input type="text" name="fullname" id="fullname">
+          </div>
+          <div class="feedback-form-group">
+            <label for="fullname">Электронная почта:</label>
+            <input type="text" name="email" id="email">
+          </div>
+          <div class="feedback-form-group">
+            <label for="message">Текст обращения:</label>
+            <textarea name="message" id="message"></textarea>
+          </div>
+          <div style="text-align:center">
+            <input type="submit" class="btn" value="Отправить">
+          </div>  
+        </form>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="container">
+        <div class="footer-top clearfix">
+          <div class="header-logo">
+            <a>EXALLENGE</a>
+              <div style="display: inline"  class="main__item"><svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle">
+                <title id="rocketIconTitle">Rocket</title>
+                <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"></path>
+                <path d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"></path>
+              </svg></div>
+          </div>
+        </div>
+        <div class="footer-middle clearfix">
+          <div class="footer-menu">
+            <h3>Курсы</h3>
+            <ul>
+              <li><a href="#">Школьникам</a></li>
+              <li><a href="#">Студентам</a></li>
+              <li><a href="#">Компаниям</a></li>
+            </ul>
+          </div>
+          <div class="footer-menu">
+            <h3>Отзывы</h3>
+            <ul>
+              <li><a href="#">Показать</a></li>
+              <li><a href="#">Оставить</a></li>
+            </ul>
+          </div>
+          <div class="footer-menu">
+            <h3>Вакансии</h3>
+            <ul>
+              <li><a href="#">Лекторы</a></li>
+              <li><a href="#">Наставники</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>
