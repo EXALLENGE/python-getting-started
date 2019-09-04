@@ -41,6 +41,9 @@
             padding-top: 0px;
             background-color: #fff;
           }
+          .reviews {
+            padding-top: 0px;
+          }
       </style>
   </head>
   <body>
@@ -73,41 +76,26 @@
         </div>
       </div>
     </div>
-    <div class="popular-and-price">
+    <div class="feedback">
       <div class="container">
-        <h2 class="section-title">Курсы</h2>
-        <div class="popular-items clearfix">
-          <div class="catalog-item">
-            <h3>Python для школьников</h3>
-            <p>Изучим основы языка, напишем первые программы. Прорешаем более 70 практических задач которые проверят наши учителя.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
-<!--            {% if user.is_authenticated %}-->
-<!--                <a href="/python-school-enroll" class="btn btn-buy">Записаться</a>-->
-<!--            {% else %}-->
-<!--                <a href="/login" class="btn btn-buy">Записаться</a>-->
-<!--            {% endif %}-->
-
+        <h2 class="section-title">Есть вопросы?</h2>
+        <form class="feedback-form" action="/keksby-mail" method="post">
+          <div class="feedback-form-group">
+            <label for="fullname">Представьтесь, пожалуйста:</label>
+            <input type="text" name="fullname" id="fullname">
           </div>
-          <div class="catalog-item">
-            <h3>Python для студентов</h3>
-            <p>Разберем как основы так и продвинутые темы языка. Разработаем выпускной проект в группах с использованием системы контроля версий.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
+          <div class="feedback-form-group">
+            <label for="fullname">Электронная почта:</label>
+            <input type="text" name="email" id="email">
           </div>
-          <div class="catalog-item">
-            <h3>Фронтенд-разработка для студентов</h3> <span>В разработке</span>
-            <p>Рассмотрим как устроен фронтенд в 2019 году и что нужно знать для того чтобы заниматься разработкой. Реализуем проект с использованием HTML, CSS и JS.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
+          <div class="feedback-form-group">
+            <label for="message">Текст обращения:</label>
+            <textarea name="message" id="message"></textarea>
           </div>
-          <div class="catalog-item">
-            <h3>Фронтенд-разработка для школьников</h3> <span>В разработке</span>
-            <p>в рамках круса изучим основы HTML, CSS и JS. Наработаем практические навыки верстки адаптивных сайтов. Познакомимся с пре- и построцессорами.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
+          <div style="text-align:center">
+            <input type="submit" class="btn" value="Отправить">
           </div>
-        </div>
+        </form>
       </div>
     </div>
     <div class="page-footer">

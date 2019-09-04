@@ -15,6 +15,14 @@ def courses(request):
     return render(request, 'courses.html')
 
 
+def reviews(request):
+    return render(request, 'reviews.html')
+
+
+def feedback(request):
+    return render(request, 'feedback.html')
+
+
 @login_required
 def user_page(request):
     print(request)
