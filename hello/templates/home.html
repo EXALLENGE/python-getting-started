@@ -13,7 +13,7 @@
         <div class="container">
           <div class="header-top clearfix">
             <div class="header-logo">
-              <a>EXALLENGE</a>
+              <a href="/">EXALLENGE</a>
                 <div style="display: inline"  class="main__item"><svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle">
                   <title id="rocketIconTitle">Rocket</title>
                   <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"></path>
@@ -21,12 +21,14 @@
                 </svg></div>
             </div>
             <ul class="main-nav clearfix">
-              <li><a href="#">Курсы</a></li>
-              <li><a href="#">Отзывы</a></li>
+              <li><a href="/courses/">Курсы</a></li>
+              <li><a href="/reviews/">Отзывы</a></li>
               <li><a href="#">Написать нам</a></li>
             </ul>
-            {% if user.is_authenticated %}
-                <a class="btn btn-quick-order" href="/login">{{ user.username }}</a>
+            {% if request.get_full_path == "/user-page/" %}
+                <a class="btn btn-quick-order" href="/logout">Выйти</a>
+            {% elif user.is_authenticated %}
+                <a class="btn btn-quick-order" href="/user-page">{{ user.username }}</a>
             {% else %}
                 <a class="btn btn-quick-order" href="/login">Войти</a>
             {% endif %}
@@ -113,7 +115,12 @@
             <h3>Python для школьников</h3>
             <p>Изучим основы языка, напишем первые программы. Прорешаем более 70 практических задач которые проверят наши учителя.</p>
             <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Записаться</a>
+            {% if user.is_authenticated %}
+                <a href="/python-school-enroll" class="btn btn-buy">Записаться</a>
+            {% else %}
+                <a href="/login" class="btn btn-buy">Записаться</a>
+            {% endif %}
+
           </div>
           <div class="catalog-item">
             <h3>Python для студентов</h3>

@@ -6,48 +6,42 @@
     <title>EXALLENGE</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .page-header {
+      <style>
+          .page-header {
+            height: 170px;
             background-color: #fff;
-        }
-
-        .promo {
-            margin-top: 120px;
-            text-align: center;
-        }
-
-        .promo .btn {
-          margin-top: 20px;
-          width: 200px;
-          display: inline-block;
-          font-size: 18px;
-          font-weight: 600;
-          text-decoration: none;
-          padding: 10px 18px;
-          border-radius: 4px;
-        }
-
-        .promo .vk {
-          color: #4a76a8;
-          border: 2px solid #4a76a8;
-        }
-
-        .promo .vk:hover {
-          background-color: #4a76a8;
-          color: #fff;
-        }
-
-        .promo .google {
-          color: #DB4437;
-          border: 2px solid #DB4437;
-        }
-
-        .promo .google:hover {
-          background-color: #DB4437;
-          color: #fff;
-        }
-    </style>
+          }
+          .catalog-item {
+            width: 100%;
+            margin-top: 70px;
+            border: none;
+            float: none;
+          }
+          .catalog-item h3 {
+            font-size: 30px;
+            max-width: 100%;
+          }
+          .catalog-item p {
+            height: 60px;
+            font-size: 20px;
+            line-height: 1.2;
+          }
+          .catalog-item span {
+            position: absolute;
+            top: 10;
+            right: 0;
+            margin-left: 20px;
+            font-size: 18px;
+          }
+          .catalog-item .btn-buy {
+            margin-left: 10px;
+            float: left;
+          }
+          .popular-and-price {
+            padding-top: 0px;
+            background-color: #fff;
+          }
+      </style>
   </head>
   <body>
     <div class="page-header" id="particles-js">
@@ -67,11 +61,45 @@
               <li><a href="#">Отзывы</a></li>
               <li><a href="#">Написать нам</a></li>
             </ul>
-            <a class="btn btn-quick-order" href="#">Войти</a>
+            {% if request.get_full_path == "/user-page/" %}
+                <a class="btn btn-quick-order" href="/logout">Выйти</a>
+            {% elif user.is_authenticated %}
+                <a class="btn btn-quick-order" href="/user-page">{{ user.username }}</a>
+            {% else %}
+                <a class="btn btn-quick-order" href="/login">Войти</a>
+            {% endif %}
           </div>
-          <div class="promo">
-              <a class="btn vk" href="{% url 'social:begin' 'vk-oauth2' %}"> Войти через <i class="fa fa-vk"></i> </a><br>
-              <a class="btn google" href="{% url 'social:begin' 'google-oauth2' %}"> Войти через <i class="fa fa-google"></i> </a>
+
+        </div>
+      </div>
+    </div>
+    <div class="popular-and-price">
+      <div class="container">
+        <h2 class="section-title">Ваши курсы</h2>
+        <div class="popular-items clearfix">
+          <div class="catalog-item">
+            <h3>Python для школьников</h3> <span>Прогресс: 53%</span>
+            <p>Изучим основы языка, напишем первые программы. Прорешаем более 70 практических задач которые проверят наши учителя.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Продолжить</a>
+<!--            {% if user.is_authenticated %}-->
+<!--                <a href="/python-school-enroll" class="btn btn-buy">Записаться</a>-->
+<!--            {% else %}-->
+<!--                <a href="/login" class="btn btn-buy">Записаться</a>-->
+<!--            {% endif %}-->
+
+          </div>
+          <div class="catalog-item">
+            <h3>Python для студентов</h3> <span>Прогресс: 53%</span>
+            <p>Разберем как основы так и продвинутые темы языка. Разработаем выпускной проект в группах с использованием системы контроля версий.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Продолжить</a>
+          </div>
+          <div class="catalog-item">
+            <h3>Фронтенд-разработка для студентов</h3> <span>Прогресс: 53%</span>
+            <p>Рассмотрим как устроен фронтенд в 2019 году и что нужно знать для того чтобы заниматься разработкой. Реализуем проект с использованием HTML, CSS и JS.</p>
+            <a href="#" class="btn btn-info">Описание</a>
+            <a href="#" class="btn btn-buy">Продолжить</a>
           </div>
         </div>
       </div>

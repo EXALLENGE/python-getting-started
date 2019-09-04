@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
+
 def login(request):
     return render(request, 'login.html')
 
@@ -14,12 +15,19 @@ def courses(request):
     return render(request, 'courses.html')
 
 
+@login_required
+def user_page(request):
+    print(request)
+    return render(request, 'user-page.html')
+
+
 def course(request, course_id):
     return render(request, 'course.html')
 
 
 def task(request, task_id):
     return render(request, 'task.html')
+
 
 @csrf_exempt
 def create_course(request):
@@ -35,6 +43,7 @@ def create_chapter(request):
 def create_task(request):
     data = request.POST
     return data
+
 
 def content(request):
     return render(request, 'md.html', {'content':
