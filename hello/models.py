@@ -5,15 +5,12 @@ from django.contrib.auth.models import User
 class Course(models.Model):
     course_name = models.CharField(max_length=30)
     description = models.CharField(max_length=600)
-    price = models.IntegerField()
-    promo_code = models.CharField(max_length=10)
 
 
 class Chapter(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     chapter_name = models.CharField(max_length=100)
     chapter_number = models.IntegerField()
-    description = models.CharField(max_length=600)
 
 
 class Task(models.Model):
@@ -45,13 +42,8 @@ class Task(models.Model):
     )
 
 
-class Test(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    description = models.TextField()
-
-
 class TestCase(models.Model):
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     input_data = models.TextField()
     output_data = models.TextField()
 
