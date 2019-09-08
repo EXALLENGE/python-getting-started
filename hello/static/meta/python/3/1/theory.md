@@ -5,7 +5,7 @@
 ```
 monday_stats = int(input())
 tuesday_stats = int(input())
-wednesday_stats = int(input)
+wednesday_stats = int(input())
 thursday_stats = int(input())
 friday_stats = int(input())
 ```
