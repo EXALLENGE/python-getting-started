@@ -1,12 +1,21 @@
-example_string = input()
+user_input = ''
+articles = []
 
-stats = list(map(int, example_string.split()))
+while user_input != 'STOP':
+    user_input = input()
+    splited_input = user_input.split()
+    article_name = ' '.join(splited_input[:-1])
+    article_name += ' ' * (16 - len(article_name))
+    article = '|' + article_name + '|'
+    article_stat = splited_input[-1]
+    article_stat += ' ' * (6 - len(article_stat))
 
-counter = 0
+    article += article_stat + '|'
+    articles.append(article)
 
-for stat in stats:
-    if counter > 2:
-        break
-    if stat < 10000:
-        print(stat, end=' ')
-        counter += 1
+print('+' * 25)
+
+for article in articles[:-1]:
+    print(article)
+
+print('+' * 25)
