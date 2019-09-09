@@ -39,10 +39,33 @@ def feedback(request):
 
 
 def course(request, course_id):
-    if request.user.is_authenticated:
-        username = request.user.username
-        print(username)
-    return render(request, 'course.html')
+    user = request.user
+    if not request.user:
+        user = None
+
+    course = Course.objects.get(pk=course_id)
+    chapters = Chapter.objects.filter(course=course)
+    for chapter in chapters:
+        tasks = Task.objects.filter(chapter=chapter)
+        chapter.tasks = tasks
+
+    try:
+        flow = Flow.objects.get(course=course, user=user)
+    except Flow.DoesNotExist:
+        flow = None
+
+    if flow:
+        user_progress = flow.progress
+        for chapter in chapters:
+            if not user_progress:
+                break
+            for task in chapter.tasks:
+                if not user_progress:
+                    break
+                task.made = True
+                user_progress -= 1
+
+    return render(request, 'course.html', {'chapters': chapters, 'course': course})
 
 
 @login_required
@@ -90,6 +113,8 @@ def create_task(request):
                 task_name=data['task_name'],
                 need_program_check=data['need_program_check'],
                 need_teacher_check=data['need_teacher_check'],
+                task_number=data['task_number'],
+                task_number_in_course=data['task_number_in_course'],
                 theory=data['theory'],
                 type_of_task=data['task_type'])
     task.save()

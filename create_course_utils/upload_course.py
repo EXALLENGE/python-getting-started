@@ -21,6 +21,7 @@ def save_test_cases(task_id, task_path):
             r = requests.post(f'{URL}/create_test/', data=test_info)
             print(r.text)
 
+task_number_in_course = 0
 
 with open(f'{COURSE_PATH}meta.json') as json_file:
     data = json.load(json_file)
@@ -41,7 +42,9 @@ with open(f'{COURSE_PATH}meta.json') as json_file:
                         with open(f'{COURSE_PATH}{folder}/{task}/meta.json') as task_file:
                             task_info = json.load(task_file)
                             task_theory = open(f'{COURSE_PATH}{folder}/{task}/theory.md', 'r').read()
-                            task_info.update({'chapter_id': chapter_id, 'task_number': task, 'theory': task_theory})
+                            task_info.update({'chapter_id': chapter_id, 'task_number': task,
+                                              'task_number_in_course': task_number_in_course, 'theory': task_theory})
+                            task_number_in_course += 1
                             r = requests.post(f'{URL}/create_task/', data=task_info)
                             print(r.text)
                             task_id = json.loads(r.text)['task_id']

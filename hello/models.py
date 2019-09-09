@@ -16,6 +16,8 @@ class Chapter(models.Model):
 class Task(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     task_name = models.CharField(max_length=200)
+    task_number = models.IntegerField(default=0)
+    task_number_in_course = models.IntegerField(default=0)
     theory = models.TextField()
     need_program_check = models.BooleanField()
     need_teacher_check = models.BooleanField()

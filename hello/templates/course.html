@@ -1,10 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>EXALLENGE</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style>
+          .page-header {
+            height: 170px;
+            background-color: #fff;
+          }
+          .catalog-item {
+            width: 100%;
+            border: none;
+            float: none;
+          }
+          .catalog-item h3 {
+            font-size: 35px;
+            max-width: 100%;
+          }
+          h4 {
+            margin: 0;
+            font-size: 28px;
+            color: #606060;
+          }
+          ol {
+            margin-top: 25px;
+          }
+          li {
+            line-height: 1.3;
+            font-size: 20px;
+            color: #606060;
+          }
+          .checked-task {
+            color: #30B58B;
+            text-decoration: line-through;
+          }
+          .inner {
+            color: #606060;
+          }
+          i {
+            color: #30B58B;
+          }
+          .catalog-item p {
+            height: 60px;
+            font-size: 20px;
+            line-height: 1.2;
+          }
+          .catalog-item .btn-buy {
+            margin-left: 10px;
+            float: left;
+          }
+          .popular-and-price {
+            padding-top: 0px;
+            background-color: #fff;
+          }
+      </style>
+  </head>
+  <body>
+    <div class="page-header" id="particles-js">
+      <div class="page-header-top">
+        <div class="container">
+          <div class="header-top clearfix">
+            <div class="header-logo">
+              <a href="/">EXALLENGE</a>
+                <div style="display: inline"  class="main__item"><svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle">
+                  <title id="rocketIconTitle">Rocket</title>
+                  <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"></path>
+                  <path d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"></path>
+                </svg></div>
+            </div>
+            <ul class="main-nav clearfix">
+              <li><a href="/courses/">Курсы</a></li>
+              <li><a href="/reviews/">Отзывы</a></li>
+              <li><a href="/feedback/">Написать нам</a></li>
+            </ul>
+            {% if request.get_full_path == "/user-page/" %}
+                <a class="btn btn-quick-order" href="/logout">Выйти</a>
+            {% elif user.is_authenticated %}
+                <a class="btn btn-quick-order" href="/user-page">{{ user.username }}</a>
+            {% else %}
+                <a class="btn btn-quick-order" href="/login">Войти</a>
+            {% endif %}
+          </div>
 
-</body>
+        </div>
+      </div>
+    </div>
+    <div class="popular-and-price">
+      <div class="container">
+        <div class="popular-items clearfix">
+            <div class="catalog-item">
+              <h3>{{ course.course_name }}</h3>
+              <p>{{ course.description }}</p>
+              {% for chapter in chapters %}
+                <h4> {{ chapter.chapter_name }} </h4>
+                <ol>
+                    {% for task in chapter.tasks %}
+                        {% if task.made %}
+                            <li>
+                              <span class="checked-task">
+                                <span class="inner">{{ task.task_name }}</span>
+                              </span><i class="fa fa-check"></i>
+                            </li>
+                        {% else %}
+                            <li>{{ task.task_name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+              {% endfor %}
+            </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <div class="container">
+        <div class="footer-top clearfix">
+          <div class="header-logo">
+            <a>EXALLENGE</a>
+              <div style="display: inline"  class="main__item"><svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle">
+                <title id="rocketIconTitle">Rocket</title>
+                <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"></path>
+                <path d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"></path>
+              </svg></div>
+          </div>
+        </div>
+        <div class="footer-middle clearfix">
+          <div class="footer-menu">
+            <h3>Курсы</h3>
+            <ul>
+              <li><a href="#">Школьникам</a></li>
+              <li><a href="#">Студентам</a></li>
+              <li><a href="#">Компаниям</a></li>
+            </ul>
+          </div>
+          <div class="footer-menu">
+            <h3>Отзывы</h3>
+            <ul>
+              <li><a href="#">Показать</a></li>
+              <li><a href="#">Оставить</a></li>
+            </ul>
+          </div>
+          <div class="footer-menu">
+            <h3>Вакансии</h3>
+            <ul>
+              <li><a href="#">Лекторы</a></li>
+              <li><a href="#">Наставники</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
