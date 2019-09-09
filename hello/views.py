@@ -1,9 +1,11 @@
-from django.shortcuts import render
+import datetime
+
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Course, Chapter, Task, TestCase
+from .models import Course, Chapter, Task, TestCase, Flow
 
 
 def login(request):
@@ -15,7 +17,17 @@ def home(request):
 
 
 def courses(request):
-    return render(request, 'courses.html')
+    user = request.user
+    if not request.user:
+        user = None
+    courses = Course.objects.all()
+    for course in courses:
+        try:
+            flow = Flow.objects.get(course=course, user=user)
+        except Flow.DoesNotExist:
+            flow = None
+        course.flow = flow
+    return render(request, 'courses.html', {'courses': courses})
 
 
 def reviews(request):
@@ -26,18 +38,31 @@ def feedback(request):
     return render(request, 'feedback.html')
 
 
+def course(request, course_id):
+    if request.user.is_authenticated:
+        username = request.user.username
+        print(username)
+    return render(request, 'course.html')
+
+
+@login_required
+def task(request, task_id):
+    return render(request, 'task.html')
+
+
 @login_required
 def user_page(request):
     print(request)
     return render(request, 'user-page.html')
 
 
-def course(request, course_id):
-    return render(request, 'course.html')
-
-
-def task(request, task_id):
-    return render(request, 'task.html')
+@login_required
+def start_course(request, course_id):
+    user = request.user
+    course = Course.objects.get(pk=course_id)
+    flow = Flow(user=user, course=course, start_date=datetime.datetime.now(), progress=0)
+    flow.save()
+    return redirect(f'/course/{course_id}/')
 
 
 @csrf_exempt
