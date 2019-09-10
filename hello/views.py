@@ -70,6 +70,18 @@ def course(request, course_id):
 
 @login_required
 def task(request, task_id):
+    user = request.user
+    task = Task.objects.get(pk=task_id)
+    chapter = task.chapter
+    course = chapter.course
+    try:
+        flow = Flow.objects.get(course=course, user=user)
+    except Flow.DoesNotExist:
+        return redirect(f'/course/{course.id}')
+
+    if task.task_number_in_course > flow.progress:
+        return redirect(f'/course/{course.id}')
+
     return render(request, 'task.html')
 
 
