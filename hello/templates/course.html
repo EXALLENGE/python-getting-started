@@ -57,6 +57,10 @@
             padding-top: 0px;
             background-color: #fff;
           }
+          a {
+            color: inherit; /* blue colors for links too */
+            text-decoration: inherit; /* no underline */
+          }
       </style>
   </head>
   <body>
@@ -101,12 +105,12 @@
                     {% for task in chapter.tasks %}
                         {% if task.made %}
                             <li>
-                              <span class="checked-task">
+                              <a  href="/task/{{ course.id }}/{{ chapter.chapter_number }}/{{ task.task_number }}/" class="checked-task">
                                 <span class="inner">{{ task.task_name }}</span>
-                              </span><i class="fa fa-check"></i>
+                              </a><i class="fa fa-check"></i>
                             </li>
                         {% else %}
-                            <li>{{ task.task_name }}</li>
+                  <li><a href="/task/{{ course.id }}/{{ chapter.chapter_number }}/{{ task.task_number }}/">{{ task.task_name }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ol>

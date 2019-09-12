@@ -46,7 +46,7 @@ def course(request, course_id):
     course = Course.objects.get(pk=course_id)
     chapters = Chapter.objects.filter(course=course)
     for chapter in chapters:
-        tasks = Task.objects.filter(chapter=chapter)
+        tasks = Task.objects.filter(chapter=chapter).order_by('task_number')
         chapter.tasks = tasks
 
     try:
