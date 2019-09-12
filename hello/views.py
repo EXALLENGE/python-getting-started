@@ -55,7 +55,7 @@ def course(request, course_id):
         flow = None
 
     if flow:
-        user_progress = flow.progress
+        user_progress = flow.progress - 1
         for chapter in chapters:
             if not user_progress:
                 break
@@ -69,20 +69,30 @@ def course(request, course_id):
 
 
 @login_required
-def task(request, task_id):
+def task(request, course_id, chapter_id, task_id):
     user = request.user
-    task = Task.objects.get(pk=task_id)
-    chapter = task.chapter
-    course = chapter.course
+    course = Course.objects.get(pk=course_id)
+    chapter = Chapter.objects.get(course=course, chapter_number=chapter_id)
+    task = Task.objects.get(chapter=chapter, task_number=task_id)
     try:
         flow = Flow.objects.get(course=course, user=user)
     except Flow.DoesNotExist:
         return redirect(f'/course/{course.id}')
 
-    if task.task_number_in_course > flow.progress:
+    # получаем номер задания
+    task_number = 0
+
+    chapters = Chapter.objects.filter(course=course, chapter_number__in=list((i for i in range(chapter_id-1))))
+
+    for ch in chapters:
+        task_number += len(Task.objects.filter(chapter=ch))
+
+    task_number += task_id
+
+    if task_number > (flow.progress + 1):
         return redirect(f'/course/{course.id}')
 
-    return render(request, 'task.html')
+    return render(request, 'task.html', {'content': task.theory})
 
 
 @login_required
@@ -95,7 +105,7 @@ def user_page(request):
 def start_course(request, course_id):
     user = request.user
     course = Course.objects.get(pk=course_id)
-    flow = Flow(user=user, course=course, start_date=datetime.datetime.now(), progress=0)
+    flow = Flow(user=user, course=course, start_date=datetime.datetime.now(), progress=1)
     flow.save()
     return redirect(f'/course/{course_id}/')
 

@@ -22,7 +22,7 @@ urlpatterns = [
     path('courses/', views.courses, name='courses'),
     path('start_course/<int:course_id>/', views.start_course, name='start_course'),
     path('course/<int:course_id>/', views.course, name='course'),
-    path('task/<int:task_id>/', views.task, name='task'),
+    path('task/<int:course_id>/<int:chapter_id>/<int:task_id>/', views.task, name='task'),
 
     path('create_course/', views.create_course, name='create_course'),
     path('create_chapter/', views.create_chapter, name='create_chapter'),
