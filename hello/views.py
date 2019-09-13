@@ -3,7 +3,7 @@ import string
 import datetime
 
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -136,6 +136,50 @@ def create_chapter(request):
     chapter = Chapter(course=course, chapter_name=data['chapter_name'], chapter_number=data['chapter_number'])
     chapter.save()
     return JsonResponse({'chapter_id': chapter.id})
+
+
+@csrf_exempt
+def task_from_util(request):
+    if request.method == 'GET':
+        body_unicode = request.body.decode('utf-8')
+        data = {i.split('=')[0]: i.split('=')[1] for i in body_unicode.split('&')}
+
+        try:
+            course_id = int(data['course_id'])
+            chapter_id = int(data['chapter_id'])
+            task_id = int(data['task_id'])
+
+            user_info = UserInfo.objects.get(test_util_password=data['test_util_password'])
+            user = user_info.user
+            flow = Flow.objects.get(user=user)
+
+            course = Course.objects.get(pk=course_id)
+            chapter = Chapter.objects.get(course=course, chapter_number=chapter_id)
+            task = Task.objects.get(chapter=chapter, task_number=task_id)
+        except Exception as e:
+            return JsonResponse({'status': 'NO', 'message': 'Проверьте аргументы для скрипта'})
+
+        # получаем номер задания
+        task_number = 0
+
+        chapters = Chapter.objects.filter(course=course, chapter_number__in=list((i for i in range(chapter_id-1))))
+
+        for ch in chapters:
+            task_number += len(Task.objects.filter(chapter=ch))
+
+        task_number += task_id
+
+        if task_number > flow.progress:
+            return JsonResponse({'status': 'NO', 'message': 'Нет доступа к этому заданию'})
+
+        test_cases = TestCase.objects.filter(task=task)
+        return JsonResponse([{'input_data': test_case.input_data, 'output_data': test_case.output_data}
+                             for test_case in test_cases], safe=False)
+
+    elif request.method == 'POST':
+        pass
+    return HttpResponseNotAllowed(['POST', 'GET'])
+
 
 
 @csrf_exempt

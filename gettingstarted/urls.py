@@ -24,6 +24,7 @@ urlpatterns = [
     path('course/<int:course_id>/', views.course, name='course'),
     path('task/<int:course_id>/<int:chapter_id>/<int:task_id>/', views.task, name='task'),
 
+    path('task_from_util/', views.task_from_util, name='task_from_util'),
     path('create_course/', views.create_course, name='create_course'),
     path('create_chapter/', views.create_chapter, name='create_chapter'),
     path('create_task/', views.create_task, name='create_task'),
