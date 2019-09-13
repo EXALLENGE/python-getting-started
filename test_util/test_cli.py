@@ -1,6 +1,8 @@
 import os
 import shutil
+import urllib
 
+DOWNLOAD_URL = 'https://exallenge-programming.herokuapp.com/static/meta/python/'
 
 user_submit = open('solution.py', 'r')
 tmp_file = open('tmp_solution.py', 'w')
@@ -12,6 +14,10 @@ user_submit.close()
 tmp_file.close()
 
 # create file test_solution, folder test_cases (download or read from cache)
+urllib.urlretrieve(f'{DOWNLOAD_URL}test_solution.py', 'test_solution.py')
+
+
+
 
 os.system('python test_solution.py')
 
