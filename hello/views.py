@@ -1,3 +1,5 @@
+import random
+import string
 import datetime
 
 from django.shortcuts import render, redirect
@@ -98,8 +100,16 @@ def task(request, course_id, chapter_id, task_id):
 @login_required
 def user_page(request):
     user = request.user
+
+    letters = string.ascii_lowercase
+    try:
+        user_info = UserInfo.objects.get(user=user)
+    except UserInfo.DoesNotExist:
+        user_info = UserInfo(user=user, test_util_password=''.join(random.choice(letters) for i in range(10)))
+        user_info.save()
+
     flows = Flow.objects.filter(user=user).select_related('course')
-    return render(request, 'user-page.html', {'flows': flows})
+    return render(request, 'user-page.html', {'flows': flows, 'user_info': user_info})
 
 
 @login_required
