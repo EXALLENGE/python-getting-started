@@ -57,6 +57,15 @@ class Flow(models.Model):
     progress = models.IntegerField()
 
 
+class UserInfo(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    test_util_password = models.CharField(max_length=10)
+
+
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)

@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Course, Chapter, Task, TestCase, Flow
+from .models import Course, Chapter, Task, TestCase, Flow, UserInfo
 
 
 def login(request):
@@ -89,7 +89,7 @@ def task(request, course_id, chapter_id, task_id):
 
     task_number += task_id
 
-    if task_number > (flow.progress + 1):
+    if task_number > flow.progress:
         return redirect(f'/course/{course.id}')
 
     return render(request, 'task.html', {'content': task.theory})
@@ -97,8 +97,9 @@ def task(request, course_id, chapter_id, task_id):
 
 @login_required
 def user_page(request):
-    print(request)
-    return render(request, 'user-page.html')
+    user = request.user
+    flows = Flow.objects.filter(user=user).select_related('course')
+    return render(request, 'user-page.html', {'flows': flows})
 
 
 @login_required

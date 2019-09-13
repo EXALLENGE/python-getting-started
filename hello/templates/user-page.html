@@ -77,30 +77,14 @@
       <div class="container">
         <h2 class="section-title">Ваши курсы</h2>
         <div class="popular-items clearfix">
-          <div class="catalog-item">
-            <h3>Python для школьников</h3> <span>Прогресс: 53%</span>
-            <p>Изучим основы языка, напишем первые программы. Прорешаем более 70 практических задач которые проверят наши учителя.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
-<!--            {% if user.is_authenticated %}-->
-<!--                <a href="/python-school-enroll" class="btn btn-buy">Записаться</a>-->
-<!--            {% else %}-->
-<!--                <a href="/login" class="btn btn-buy">Записаться</a>-->
-<!--            {% endif %}-->
-
-          </div>
-          <div class="catalog-item">
-            <h3>Python для студентов</h3> <span>Прогресс: 53%</span>
-            <p>Разберем как основы так и продвинутые темы языка. Разработаем выпускной проект в группах с использованием системы контроля версий.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
-          </div>
-          <div class="catalog-item">
-            <h3>Фронтенд-разработка для студентов</h3> <span>Прогресс: 53%</span>
-            <p>Рассмотрим как устроен фронтенд в 2019 году и что нужно знать для того чтобы заниматься разработкой. Реализуем проект с использованием HTML, CSS и JS.</p>
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Продолжить</a>
-          </div>
+          {% for flow in flows%}
+            <div class="catalog-item">
+              <h3>{{ flow.course.course_name  }}</h3>
+              <p>{{ flow.course.description }}</p>
+              <a href="/course/{{ flow.course.id }}/" class="btn btn-info">Описание</a>
+              <a href="/course/{{ flow.course.id }}/" class="btn btn-buy">Продолжить</a>
+            </div>
+          {% endfor %}
         </div>
       </div>
     </div>
