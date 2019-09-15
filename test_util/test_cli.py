@@ -17,8 +17,6 @@ tmp_file.close()
 urllib.urlretrieve(f'{DOWNLOAD_URL}test_solution.py', 'test_solution.py')
 
 
-
-
 os.system('python test_solution.py')
 
 # output report
