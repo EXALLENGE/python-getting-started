@@ -63,9 +63,15 @@ def main(args):
 
         if len(program_result) == len(output_data) and all(a == b for a, b in zip(program_result, output_data)):
             print('OK\n')
+            r = requests.request(method='post',
+                                url=f'{DOWNLOAD_URL}/task_from_util/',
+                                data={'test_util_password': args[4], 'course_id': args[1],
+                                    'chapter_id': args[2], 'task_id': args[3]})
         else:
             print('Wrong answer\n')
             break
+
+    os.remove('./tmp_solution.py')
 
 
 if __name__ == '__main__':

@@ -177,7 +177,36 @@ def task_from_util(request):
                              for test_case in test_cases], safe=False)
 
     elif request.method == 'POST':
-        pass
+        try:
+            course_id = int(request.POST['course_id'])
+            chapter_id = int(request.POST['chapter_id'])
+            task_id = int(request.POST['task_id'])
+
+            user_info = UserInfo.objects.get(test_util_password=request.POST['test_util_password'])
+            user = user_info.user
+            flow = Flow.objects.get(user=user)
+
+            course = Course.objects.get(pk=course_id)
+            chapter = Chapter.objects.get(course=course, chapter_number=chapter_id)
+            task = Task.objects.get(chapter=chapter, task_number=task_id)
+        except Exception as e:
+            return JsonResponse({'status': 'NO', 'message': 'Проверьте аргументы для скрипта'})
+
+        # получаем номер задания
+        task_number = 0
+
+        chapters = Chapter.objects.filter(course=course, chapter_number__in=list((i for i in range(chapter_id-1))))
+
+        for ch in chapters:
+            task_number += len(Task.objects.filter(chapter=ch))
+
+        task_number += task_id
+
+        if task_number == flow.progress:
+            flow.progress += 1
+            flow.save()
+            return JsonResponse({'status': 'OK'})
+        return JsonResponse({'status': 'NO'})
     return HttpResponseNotAllowed(['POST', 'GET'])
 
 
