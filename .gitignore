@@ -6,3 +6,4 @@ db.sqlite3
 getting-started/*
 .idea/
 */.ipynb_checkpoints
+js_util/node_modules
