@@ -8,3 +8,4 @@ getting-started/*
 .vscode/
 env/
 */.ipynb_checkpoints
+js_util/node_modules
