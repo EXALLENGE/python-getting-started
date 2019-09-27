@@ -2,5 +2,31 @@
   "task_name": "Итоговое тестирование",
   "task_type": "CD",
   "need_program_check": true,
-  "need_teacher_check": false
+  "need_teacher_check": false,
+  "task_info": {
+    "definition_of_done": 1.0,
+    "tasks": [
+      {
+        "question": "Когда выполняется цикл while?",
+        "type": "checkbox",
+        "answers": [
+          { "answer_text": "это не цикл", "right_answer": false },
+          { "answer_text": "всегда", "right_answer": false },
+          {
+            "answer_text": "когда написано выражение if перед циклом",
+            "right_answer": false
+          },
+          {
+            "answer_text": "если выражение в условии цикла истинно (True), то выполняется 'Блок кода' написанный в цикле",
+            "right_answer": true
+          }
+        ]
+      },
+      {
+        "question": "Какое ключевое слово используется для создания анонимных функций?",
+        "type": "input",
+        "right_answer": "lambda"
+      }
+    ]
+  }
 }
